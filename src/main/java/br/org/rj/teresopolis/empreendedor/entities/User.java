@@ -1,11 +1,17 @@
 package br.org.rj.teresopolis.empreendedor.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User implements Serializable{
@@ -18,6 +24,11 @@ public class User implements Serializable{
 	private String email;
 	private String telefone;
 	private String senha;
+	@JoinColumn(name = "endereco_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	private Endereco endereco;
+	@OneToMany(mappedBy = "businessman")
+	private List<Company> companies = new ArrayList<>();
 	
 	public User() {
 		
@@ -72,6 +83,10 @@ public class User implements Serializable{
 		this.senha = senha;
 	}
 
+	public List<Company> getCompanies() {
+		return companies;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -96,5 +111,5 @@ public class User implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }
