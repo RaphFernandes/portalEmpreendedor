@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Endereco implements Serializable{
+@Table(name= "tb_Adress")
+public class Adress implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -24,14 +26,13 @@ public class Endereco implements Serializable{
 	private String uf;
 	private String pais;
 	
-	public Endereco() {
+	public Adress() {
 		
 	}
 
-	public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep,
+	public Adress(Long id, String logradouro, String numero, String complemento, String bairro, String cep,
 			String cidade, String uf, String pais) {
 		super();
-		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;

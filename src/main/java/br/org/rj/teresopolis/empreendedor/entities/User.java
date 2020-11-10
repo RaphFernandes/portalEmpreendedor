@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -24,9 +27,9 @@ public class User implements Serializable{
 	private String email;
 	private String telefone;
 	private String senha;
-	@JoinColumn(name = "endereco_id")
-	@OneToOne(cascade = CascadeType.ALL)
-	private Endereco endereco;
+	@JoinColumn(name = "adress_id")
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Adress endereco;
 	@OneToMany(mappedBy = "businessman")
 	private List<Company> companies = new ArrayList<>();
 	
@@ -34,13 +37,14 @@ public class User implements Serializable{
 		
 	}
 
-	public User(Long id, String nome, String email, String telefone, String senha) {
+	public User(Long id, String nome, String email, String telefone, String senha, Adress endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.senha = senha;
+		this.endereco = endereco;
 	}
 
 	public Long getId() {
@@ -74,13 +78,22 @@ public class User implements Serializable{
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
+	
+	@JsonProperty(access=Access.WRITE_ONLY)
 	public String getSenha() {
 		return senha;
 	}
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Adress getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Adress endereco) {
+		this.endereco = endereco;
 	}
 
 	public List<Company> getCompanies() {

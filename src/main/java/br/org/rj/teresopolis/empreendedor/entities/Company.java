@@ -26,20 +26,20 @@ public class Company implements Serializable{
 	private LocalDate dataAbertura;
 	private String inscMunicipal;
 	private String protocoloAndamento;
-	@JoinColumn(name = "endereco_id")
-	@OneToOne(cascade = CascadeType.ALL)
-	private Endereco endereco;
 	private String telefone;
+	@JoinColumn(name = "adress_id")
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Adress endereco;
 	@ManyToOne
-	@JoinColumn(name = "businessman_id")
 	private User businessman;
+
 	
 	public Company(){
 		
 	}
 
 	public Company(Long id, String nomeEmpresarial, String nomeFantasia, String cnpj, LocalDate dataAbertura,
-			String inscMunicipal, String protocoloAndamento, Endereco endereco, String telefone, User businessman) {
+			String inscMunicipal, String protocoloAndamento, String telefone, Adress endereco, User businessman) {
 		super();
 		this.id = id;
 		this.nomeEmpresarial = nomeEmpresarial;
@@ -48,8 +48,8 @@ public class Company implements Serializable{
 		this.dataAbertura = dataAbertura;
 		this.inscMunicipal = inscMunicipal;
 		this.protocoloAndamento = protocoloAndamento;
-		this.endereco = endereco;
 		this.telefone = telefone;
+		this.endereco = endereco;
 		this.businessman = businessman;
 	}
 
@@ -109,28 +109,22 @@ public class Company implements Serializable{
 		this.protocoloAndamento = protocoloAndamento;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
 	public String getTelefone() {
 		return telefone;
 	}
-
+	
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
-	public User getBusinessman() {
-		return businessman;
+	
+	public Adress getEndereco() {
+		return endereco;
 	}
 
-	public void setBusinessman(User businessman) {
-		this.businessman = businessman;
+	public void setEndereco(Adress endereco) {
+		this.endereco = endereco;
 	}
+
+
 	
 }
